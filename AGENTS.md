@@ -2,8 +2,9 @@
 
 ## Rules
 
-- **Delegate and avoid context rot**: The main thread must be restricted to orchestrating, keeping a high-end vision for correctness. Tasks and majority of work should be delegated to subagents unless change is very minimal.
-- **Right tool for job**: use Opus low for complex coding tasks. Use Sonnet for coding tasks. Use Haiku for mechanical tasks such as one line fixes, running and reporting tests, or anything else that is generally deterministic.
+- **Delegate and avoid context rot**: The main thread must be restricted to orchestrating, keeping a high-end vision for correctness. Tasks and majority of work should be delegated to subagents unless change is minimal.
+- **Right tool for job**: use Opus low for complex coding tasks with ambiguity or those that require a lot of context. Use Sonnet for coding tasks with very specific instructions. Use Haiku for mechanical tasks such as one line fixes, running and reporting tests, or anything else that is generally deterministic.
+- **Ask instead of churning — hard limit: 2 failed hypotheses**: when each debug attempt costs a real cycle (an e2e run, a build, a deploy) and two hypotheses have failed, STOP and ask one direct question about the domain fact you're missing. The user knows their system; a one-line answer beats 30 minutes of instrumentation. Never keep instrumenting to avoid asking.
 - **No head/tail on command output**: when running commands that might produce large output, pipe to a temp file first (command > /tmp/cc_out.txt 2>&1) then read that file.
 
 ## Style
